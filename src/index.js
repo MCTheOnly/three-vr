@@ -4,7 +4,9 @@ import './styles/main.scss'
 import * as THREE from 'three'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
 
 document.body.appendChild(VRButton.createButton(renderer));
 
@@ -111,12 +113,24 @@ objLoader.load(
 	}
 )
 
+//VR
+const controllerModelFactory = new XRControllerModelFactory();
+
+const controllerGrip1 = renderer.xr.getControllerGrip(0);
+controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
+
+const controllerGrip2 = renderer.xr.getControllerGrip(1);
+controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
+
+
 //SCENE OBJECTS
 const sceneObjects = [
 	gridHelper,
 	ambientLight,
 	pointLight,
-	// cube, 
+	// cube,
+	controllerGrip1,
+	controllerGrip2
 ]
 
 scene.add(...sceneObjects)
@@ -132,6 +146,7 @@ function onWindowResize() {
 
 renderer.setAnimationLoop(function () {
 
+	onWindowResize()
 	render()
 
 });
