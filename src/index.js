@@ -1,4 +1,3 @@
-import module from "./module.js"
 import './styles/main.scss'
 
 import * as THREE from 'three'
@@ -116,11 +115,32 @@ objLoader.load(
 //VR
 const controllerModelFactory = new XRControllerModelFactory();
 
-const controllerGrip1 = renderer.xr.getControllerGrip(0);
-controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
+const controller1 = renderer.xr.getControllerGrip(0);
+controller1.add(controllerModelFactory.createControllerModel(controller1));
 
 const controllerGrip2 = renderer.xr.getControllerGrip(1);
 controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
+
+function onSelectStart() {
+
+	this.userData.isSelecting = true;
+	console.log('selection start')
+}
+
+function onSelectEnd() {
+
+	this.userData.isSelecting = false;
+	console.log('selection end')
+}
+
+controller1.addEventListener('selectstart', onSelectStart);
+controller1.addEventListener('selectend', onSelectEnd);
+controller1.addEventListener('connected', function (event) {
+
+	this.add(buildController(event.data));
+	console.log('controller 1 connected')
+
+});
 
 
 //SCENE OBJECTS
