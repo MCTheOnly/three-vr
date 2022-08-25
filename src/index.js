@@ -96,6 +96,8 @@ objLoader.load(
 		// })
 
 		// object = object.children[0]
+		console.log(object)
+
 		object.scale.set(.001, .001, .001)
 		object.position.set(-10, -6, 0)
 		// object.material.transparent = true
