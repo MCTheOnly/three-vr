@@ -15,6 +15,8 @@ const sizes = {
 	height: window.innerHeight
 }
 
+//SCENE
+
 const scene = new THREE.Scene()
 
 //CAMERA
@@ -77,19 +79,23 @@ const objLoader = new OBJLoader()
 objLoader.load(
 	'./assets/models/FOTOVOLTAIKA.obj',
 	(object) => {
+
 		let material = new THREE.MeshPhysicalMaterial({
 			metalness: 0.9,
 			roughness: 0.9,
 			color: 0xffffff,
 			wireframe: false,
 		});
-		(object.children[0]).material = material
-		object.traverse(function (child) {
-			if ((child).isMesh) {
-				(child).material = material
-			}
-		})
-		object = object.children[0]
+
+		// (object.children[0]).material = material
+
+		// object.traverse(function (child) {
+		// 	if ((child).isMesh) {
+		// 		(child).material = material
+		// 	}
+		// })
+
+		// object = object.children[0]
 		object.scale.set(.001, .001, .001)
 		object.position.set(-10, -6, 0)
 		// object.material.transparent = true
@@ -114,6 +120,7 @@ const sceneObjects = [
 scene.add(...sceneObjects)
 
 window.addEventListener('resize', onWindowResize, false)
+
 function onWindowResize() {
 	camera.aspect = sizes.width / sizes.height
 	camera.updateProjectionMatrix()
