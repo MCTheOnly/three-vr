@@ -7,8 +7,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
 
-document.body.appendChild(VRButton.createButton(renderer));
-
 const canvas = document.querySelector('.webGL')
 
 const sizes = {
@@ -27,7 +25,7 @@ const camera = new THREE.PerspectiveCamera(
 	0.1,
 	1000
 )
-camera.position.z = 2
+camera.position.set(15, 5, 0)
 
 //LIGHTS
 //Ambient Light
@@ -47,6 +45,8 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.shadowMap.enabled = true
 renderer.xr.enabled = true //VR
 // document.body.appendChild(renderer.domElement)
+document.body.appendChild(VRButton.createButton(renderer));
+
 
 //OBJECTS
 const cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshPhysicalMaterial({
@@ -100,7 +100,8 @@ objLoader.load(
 		console.log(object)
 
 		object.scale.set(.001, .001, .001)
-		object.position.set(-10, -6, 0)
+		object.position.set(-11, 0, 10)
+		object.rotateX(-Math.PI / 2)
 		// object.material.transparent = true
 		scene.add(object)
 	},
@@ -149,7 +150,7 @@ const sceneObjects = [
 	ambientLight,
 	pointLight,
 	// cube,
-	controllerGrip1,
+	controller1,
 	controllerGrip2
 ]
 
