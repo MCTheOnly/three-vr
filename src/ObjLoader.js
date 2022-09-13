@@ -2,9 +2,9 @@ import * as THREE from 'three'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 
-function ObjLoader(url, scene) {
+function ObjLoader(url, scene, manager) {
 
-	const objLoader = new OBJLoader()
+	const objLoader = new OBJLoader(manager)
 
 	objLoader.load(
 		url,
